@@ -1,0 +1,43 @@
+export type Position = "Portero" | "Defensa" | "Mediocampista" | "Delantero";
+
+export interface Player {
+  id: string; name: string; position: Position; number: number; nationality: string; image: string; birthDate?: string; note?: string;
+}
+
+export interface Team {
+  id: string; name: string; shortName: string; city: string; stadium: string; founded: number; logo: string; description: string; dataStatus: "historial" | "demostracion"; trophies: { liga: number; copa: number; superliga: number; libertadores: number; sudamericana: number; otros: number }; players: Player[];
+}
+
+const logo = (code: string) => `https://placehold.co/160x160/0c8068/c9e86b?font=roboto&text=${code}`;
+const demoPlayer = (id: string, name: string, position: Position, number: number, nationality: string): Player => ({ id, name, position, number, nationality, image: `https://api.dicebear.com/9.x/personas/svg?seed=${id}`, note: "Registro demostrativo: actualizar con fuente oficial." });
+
+export const TEAMS: Team[] = [
+  { id:"nacional", name:"Atlético Nacional", shortName:"Nacional", city:"Medellín", stadium:"Atanasio Girardot", founded:1947, logo:logo("AN"), dataStatus:"demostracion", description:"Club histórico de Medellín, reconocido por su tradición local y su presencia en competiciones continentales.", trophies:{liga:17,copa:6,superliga:3,libertadores:2,sudamericana:0,otros:0}, players:[demoPlayer("an-1","Registro de ejemplo","Portero",1,"Colombia"),demoPlayer("an-2","Registro de ejemplo","Defensa",4,"Colombia"),demoPlayer("an-3","Registro de ejemplo","Mediocampista",8,"Colombia"),demoPlayer("an-4","Registro de ejemplo","Delantero",9,"Colombia")] },
+  { id:"millonarios", name:"Millonarios FC", shortName:"Millonarios", city:"Bogotá", stadium:"El Campín", founded:1946, logo:logo("MI"), dataStatus:"demostracion", description:"El Embajador: una institución capitalina de enorme tradición, identidad y convocatoria.", trophies:{liga:16,copa:3,superliga:1,libertadores:0,sudamericana:0,otros:0}, players:[demoPlayer("mi-1","Registro de ejemplo","Portero",1,"Colombia"),demoPlayer("mi-2","Registro de ejemplo","Defensa",3,"Colombia"),demoPlayer("mi-3","Registro de ejemplo","Mediocampista",10,"Colombia"),demoPlayer("mi-4","Registro de ejemplo","Delantero",9,"Colombia")] },
+  { id:"america", name:"América de Cali", shortName:"América", city:"Cali", stadium:"Pascual Guerrero", founded:1927, logo:logo("AC"), dataStatus:"demostracion", description:"Los Diablos Rojos cuentan con una de las historias más reconocibles del fútbol colombiano.", trophies:{liga:15,copa:0,superliga:0,libertadores:0,sudamericana:0,otros:0}, players:[demoPlayer("ac-1","Registro de ejemplo","Portero",1,"Colombia"),demoPlayer("ac-2","Registro de ejemplo","Defensa",2,"Colombia"),demoPlayer("ac-3","Registro de ejemplo","Mediocampista",8,"Colombia"),demoPlayer("ac-4","Registro de ejemplo","Delantero",11,"Colombia")] },
+  { id:"santa-fe", name:"Independiente Santa Fe", shortName:"Santa Fe", city:"Bogotá", stadium:"El Campín", founded:1941, logo:logo("SF"), dataStatus:"historial", description:"Pionero del fútbol profesional colombiano y protagonista del clásico capitalino.", trophies:{liga:9,copa:2,superliga:4,libertadores:0,sudamericana:0,otros:0}, players:[] },
+  { id:"cali", name:"Deportivo Cali", shortName:"Deportivo Cali", city:"Cali", stadium:"Deportivo Cali", founded:1912, logo:logo("DC"), dataStatus:"historial", description:"Una institución tradicional del Valle del Cauca con una larga historia competitiva.", trophies:{liga:10,copa:1,superliga:1,libertadores:0,sudamericana:0,otros:0}, players:[] },
+  { id:"junior", name:"Junior FC", shortName:"Junior", city:"Barranquilla", stadium:"Metropolitano", founded:1924, logo:logo("JU"), dataStatus:"historial", description:"El equipo de Barranquilla, referente de la costa Caribe y del fútbol nacional.", trophies:{liga:10,copa:2,superliga:2,libertadores:0,sudamericana:0,otros:0}, players:[] },
+  { id:"medellin", name:"Independiente Medellín", shortName:"DIM", city:"Medellín", stadium:"Atanasio Girardot", founded:1913, logo:logo("DM"), dataStatus:"historial", description:"El Poderoso de la Montaña, uno de los clubes con mayor arraigo de Antioquia.", trophies:{liga:6,copa:3,superliga:0,libertadores:0,sudamericana:0,otros:0}, players:[] },
+  { id:"once-caldas", name:"Once Caldas", shortName:"Once Caldas", city:"Manizales", stadium:"Palogrande", founded:1959, logo:logo("OC"), dataStatus:"historial", description:"El campeón continental de Manizales, protagonista de una de las grandes gestas colombianas.", trophies:{liga:4,copa:0,superliga:0,libertadores:1,sudamericana:0,otros:0}, players:[] },
+  { id:"tolima", name:"Deportes Tolima", shortName:"Tolima", city:"Ibagué", stadium:"Manuel Murillo Toro", founded:1954, logo:logo("TO"), dataStatus:"historial", description:"Vinotinto y oro: un club competitivo con fuerte identidad regional.", trophies:{liga:1,copa:1,superliga:0,libertadores:0,sudamericana:0,otros:0}, players:[] },
+  { id:"pereira", name:"Deportivo Pereira", shortName:"Pereira", city:"Pereira", stadium:"Hernán Ramírez Villegas", founded:1944, logo:logo("PE"), dataStatus:"historial", description:"La institución matecaña representa a la capital de Risaralda en la primera división.", trophies:{liga:0,copa:0,superliga:0,libertadores:0,sudamericana:0,otros:0}, players:[] },
+  { id:"bucaramanga", name:"Atlético Bucaramanga", shortName:"Bucaramanga", city:"Bucaramanga", stadium:"Alfonso López", founded:1949, logo:logo("BU"), dataStatus:"historial", description:"El Leopardo, un club de tradición santandereana y orgullo de su afición.", trophies:{liga:1,copa:0,superliga:0,libertadores:0,sudamericana:0,otros:0}, players:[] },
+  { id:"pasto", name:"Deportivo Pasto", shortName:"Pasto", city:"Pasto", stadium:"Libertad", founded:1949, logo:logo("PA"), dataStatus:"historial", description:"El equipo volcánico lleva la identidad del sur colombiano a la competencia profesional.", trophies:{liga:1,copa:1,superliga:0,libertadores:0,sudamericana:0,otros:0}, players:[] },
+];
+
+export const TOURNAMENTS = ["Liga BetPlay", "Copa Colombia", "Superliga", "Copa Libertadores", "Copa Sudamericana", "Recopa Sudamericana"];
+
+export interface QuizQuestion { question:string; options:string[]; correctAnswer:string; explanation:string; }
+export const QUIZ_QUESTIONS: QuizQuestion[] = [
+ {question:"¿Qué equipo colombiano ganó la Copa Libertadores de 1989?",options:["Millonarios","Atlético Nacional","América de Cali","Once Caldas"],correctAnswer:"Atlético Nacional",explanation:"Atlético Nacional conquistó la edición de 1989 ante Olimpia."},
+ {question:"¿En qué ciudad juega como local el Junior?",options:["Cali","Bogotá","Barranquilla","Medellín"],correctAnswer:"Barranquilla",explanation:"El club representa a Barranquilla y juega en el Metropolitano."},
+ {question:"¿Cómo se conoce al clásico entre Santa Fe y Millonarios?",options:["Clásico Paisa","Clásico Capitalino","Clásico del Valle","Clásico Cafetero"],correctAnswer:"Clásico Capitalino",explanation:"Los dos clubes bogotanos protagonizan el Clásico Capitalino."},
+ {question:"¿Qué club ganó la Copa Libertadores de 2004?",options:["Deportivo Pasto","Once Caldas","Deportes Tolima","Junior"],correctAnswer:"Once Caldas",explanation:"Once Caldas venció a Boca Juniors en la final de 2004."},
+ {question:"¿Qué equipo juega en el estadio Pascual Guerrero?",options:["América de Cali","Pereira","Junior","Santa Fe"],correctAnswer:"América de Cali",explanation:"El Pascual Guerrero es uno de los escenarios históricos de Cali."},
+ {question:"¿Qué club es conocido como el Rey de Copas?",options:["Atlético Nacional","Millonarios","Deportivo Cali","Tolima"],correctAnswer:"Atlético Nacional",explanation:"Es un apodo asociado a su amplia cosecha de títulos nacionales."},
+ {question:"¿En qué ciudad está el estadio Palogrande?",options:["Manizales","Pasto","Ibagué","Bucaramanga"],correctAnswer:"Manizales",explanation:"Palogrande es el estadio del Once Caldas."},
+ {question:"¿Cuál de estos clubes representa a Risaralda?",options:["Pereira","Cali","Junior","DIM"],correctAnswer:"Pereira",explanation:"Deportivo Pereira es el club profesional de la capital risaraldense."},
+ {question:"¿Qué torneo reúne a clubes de primera y segunda división?",options:["Copa Colombia","Superliga","Liga BetPlay","Recopa"],correctAnswer:"Copa Colombia",explanation:"La Copa Colombia tiene un formato nacional con clubes de distintas categorías."},
+ {question:"¿Qué equipo es apodado el Embajador?",options:["Millonarios","Santa Fe","América","Once Caldas"],correctAnswer:"Millonarios",explanation:"El Embajador es uno de los sobrenombres históricos de Millonarios."},
+];

@@ -1,0 +1,15 @@
+"use client";
+import { useMemo, useState } from "react";
+import { ArrowRight, Search, Trophy } from "lucide-react";
+import { TEAMS, TOURNAMENTS } from "@/data/db";
+import TeamCard from "@/components/TeamCard";
+
+export default function Home() {
+  const [query, setQuery] = useState("");
+  const filtered = useMemo(() => TEAMS.filter((team) => `${team.name} ${team.city}`.toLowerCase().includes(query.toLowerCase())), [query]);
+  return <div className="animate-in">
+    <section className="hero"><div className="container hero-grid"><div><div className="eyebrow" style={{ color: "var(--lime)" }}>Fútbol profesional colombiano</div><h1>La pasión<br />tiene archivo.</h1><p>Explora la historia, los escudos y las historias que construyeron a los clubes más representativos de Colombia.</p><div className="hero-actions"><a className="btn btn-primary" href="#equipos">Explorar equipos <ArrowRight size={17} /></a><a className="btn" style={{ color: "white", border: " " }} href="/cuestionario">Medir tu conocimiento</a></div><div className="hero-note"><span /> Datos históricos organizados para descubrir y actualizar</div></div><div className="hero-panel"><div className="hero-panel-label">El mapa del fútbol</div><div className="hero-stat"><strong>12</strong><span>clubes destacados</span></div><div className="hero-stat"><strong>6</strong><span>competiciones para seguir</span></div><div className="hero-stat"><strong>10</strong><span>preguntas de cultura futbolera</span></div></div></div></section>
+    <section className="section" id="equipos"><div className="container"><div className="section-head"><div><div className="eyebrow">Primera división · Colombia</div><h2 className="section-title display">Equipos destacados</h2></div><p className="section-copy">Una mirada rápida a los clubes que han escrito capítulos esenciales de nuestro fútbol.</p></div><div className="toolbar"><div className="search-box"><Search className="search-icon" size={17} /><input aria-label="Buscar equipo" placeholder="Buscar por equipo o ciudad..." value={query} onChange={(event) => setQuery(event.target.value)} /></div><span className="muted">{filtered.length} equipos visibles</span></div>{filtered.length ? <div className="team-grid">{filtered.map((team) => <TeamCard key={team.id} team={team} />)}</div> : <div className="empty-state"><h3>No encontramos ese equipo</h3><p className="muted">Prueba con otro nombre o ciudad.</p></div>}</div></section>
+    <section className="section" style={{ paddingTop: 0 }}><div className="container"><div className="section-head"><div><div className="eyebrow">Palmarés y tradición</div><h2 className="section-title display">Torneos y copas</h2></div><p className="section-copy">La plataforma separa el catálogo de competiciones de los títulos de cada club para facilitar futuras actualizaciones.</p></div><div className="tournament-strip">{TOURNAMENTS.map((tournament, index) => <div className="tournament" key={tournament}><Trophy className="tournament-icon" size={20} /><strong>{tournament}</strong><span>{index < 3 ? "Competición nacional" : "Escenario internacional"}</span></div>)}</div></div></section>
+  </div>;
+}
